@@ -85,16 +85,21 @@
       <% if(section=='stack') {%>
         <input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
       <% } %>
-      <label><%- title %></label>
-      <input class="edit" value="<%- title %>">
-      <% if(pos==getTopOfStackPos() && section=='stack') {%>
-        <button class="destroy">remove</button>
-        <button class="rml">RML</button>
-      <% } %>
+      
+      
       <% if(section=='reminder') {%>
         <button class="destroy">remove</button>
         <button class="mcq">MCQ</button>
       <% } %>
+      <% if(pos==getTopOfStackPos() && section=='stack') {%>
+        <button class="mcq_from_stack">MCQ</button>
+        <button class="rml">RML</button>
+        <button class="destroy">remove</button>
+        
+      <% } %>
+      <label><%- pos %> -</label>
+      <label><%- title %></label>
+      <input class="edit" value="<%- title %>">
 
     </div>
   </script>  

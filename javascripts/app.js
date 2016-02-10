@@ -19,8 +19,25 @@
         }
 
       },this);
-      console.log("top of stack pos = "+top);
+      // console.log("top of stack pos = "+top);
       return top;
+    }
+
+    var getBottomOfCallbackQueuePos=function(){
+      var bottom=0;
+      app.todoList.each(function(todo){
+        // console.log("came here");
+        // console.log(todo);
+        if(todo.get('section')=='callback_queue' && todo.get('completed')==false)
+        {
+          // console.log("part of stack");
+          // console.log(todo.get('title'));
+          bottom++;
+        }
+
+      },this);
+      console.log("bottom of callback_queue pos = "+bottom);
+      return bottom;
     }
 
 
@@ -44,11 +61,16 @@
     //--------------
     app.TodoList = Backbone.Collection.extend({
       model: app.Todo,
+      comparator: function( collection ){
+        return( collection.get( 'pos' ) );
+      },
       localStorage: new Store("backbone-todo")
     });
 
     // instance of the Collection
     app.todoList = new app.TodoList();
+    // app.todoList.comparator = 'page';
+    // app.todoList.comparator = 'pos';
 
     //--------------
     // Views
@@ -80,7 +102,8 @@
         'click .toggle': 'toggleCompleted',
         'click .destroy': 'destroy',
         'click .rml': 'pushTaskToReminderList',
-        'click .mcq': 'pushTaskToCallbackQueue'
+        'click .mcq': 'pushTaskToCallbackQueue',
+        'click .mcq_from_stack': 'pushTaskToCallbackQueueFromStack'
       },
       edit: function(){
         this.$el.addClass('editing');
@@ -133,9 +156,21 @@
       },
       pushTaskToCallbackQueue: function(){
         this.model.set('section','callback_queue');
+        this.model.set('pos',getBottomOfCallbackQueuePos());
         this.model.save();
+        app.todoList.sort();
         app.callbackView.addAll();
         app.reminderView.addAll();
+      },
+      pushTaskToCallbackQueueFromStack: function(){
+        this.model.set('section','callback_queue');
+        this.model.set('pos',getBottomOfCallbackQueuePos());
+        this.model.save();
+        app.todoList.sort();
+        app.callbackView.addAll();
+        app.stackView.addAll();
+        if (getTopOfStackPos()==0)
+            this.pushTaskToStackIfEmpty();
       },
       pushTaskToStackIfEmpty: function(){
         console.log("hello%%%%%%");
@@ -148,8 +183,16 @@
             console.log(todo.get('title'));
             todo.set('section','stack');
             todo.save();
-            app.callbackView.addAll();
             app.stackView.addAll();
+            var pos=1;
+            app.todoList.each(function(todo){
+              if(todo.get('completed')==false && todo.get('section')=='callback_queue')
+              {
+                todo.set('pos',pos);
+                pos++
+              }
+            });
+            app.callbackView.addAll();
             return true;
           }
         });
@@ -215,7 +258,14 @@
       addOne: function(todo){
         if(todo.attributes.section=='stack'&&todo.get('completed')==false)
         {
-          todo.set('pos',this.pos);
+          if(todo.get('pos')!=this.pos)
+          {
+            todo.set('pos',this.pos);
+            todo.save();
+          }
+          // console.log(this.pos);
+          // console.log(todo.get('pos'));
+          // console.log(todo.get('title'));
           this.pos++;
           var view = new app.TodoView({model: todo});
           $('#stack-todo-list').prepend(view.render().el);
@@ -230,7 +280,8 @@
         return {
           title: this.input.val().trim(),
           completed: false,
-          section:'stack'
+          section:'stack',
+          pos:getTopOfStackPos()+1,
         }
       }
     });
@@ -238,6 +289,7 @@
     // renders the full list of todo items calling TodoView for each one.
     app.CallbackView = Backbone.View.extend({
       el: '#callback',
+      pos:1,
       initialize: function () {
         this.input = this.$('#callback-new-todo');
         app.todoList.on('add', this.addAll, this);
@@ -255,13 +307,21 @@
         this.input.val(''); // clean input box
       },
       addOne: function(todo){
-        if(todo.attributes.section=='callback_queue')
+
+        if(todo.get('section')=='callback_queue' && todo.get('completed')==false)
         {
+          if(todo.get('pos')!=this.pos)
+          {
+            todo.set('pos',this.pos);
+            todo.save();
+          }
+          this.pos++;
           var view = new app.TodoView({model: todo});
           $('#callback-todo-list').append(view.render().el);
         }
       },
       addAll: function(){
+        this.pos=1;
         this.$('#callback-todo-list').html(''); // clean the todo list
         app.todoList.each(this.addOne, this);
       },
@@ -269,7 +329,8 @@
         return {
           title: this.input.val().trim(),
           completed: false,
-          section:'callback_queue'
+          section:'callback_queue',
+          pos:getBottomOfCallbackQueuePos()+1,
         }
       }
     });
@@ -319,3 +380,51 @@
     app.stackView = new app.StackView(); 
     app.callbackView = new app.CallbackView(); 
     app.reminderView = new app.ReminderView(); 
+
+    var ipc = require("electron").ipcRenderer;
+    ipc.on('ping', function(event,message) {
+      console.log(message); // prints "pong"
+    });
+
+
+/*
+  Using this function to find a string in the page
+*/
+var lastSearchedString='';
+function findString (str) {
+ var strFound;
+ if (window.find) {
+
+  // CODE FOR BROWSERS THAT SUPPORT window.find
+
+  strFound=self.find(str);
+  console.log(strFound);
+  if (!strFound) {
+    console.log("came here");
+    console.log(strFound);
+    strFound=self.find(str,0,1);
+    while (self.find(str,0,1)) continue;
+  }
+ }
+ 
+  if (lastSearchedString!=str && !strFound) alert ("String '"+str+"' not found!")
+  lastSearchedString=str;  
+ return;
+}
+
+function pushAllTasksInCallbackToStack(){
+  app.todoList.each(function(todo){
+    if(todo.get('section')=='callback_queue')
+    {
+      console.log(todo.attributes);
+      todo.set('section','stack');
+      todo.set('pos',getTopOfStackPos()+getBottomOfCallbackQueuePos());
+      todo.save();
+      console.log(todo.attributes);
+      console.log(getTopOfStackPos());
+    }
+  });
+  app.todoList.sort();
+  app.callbackView.addAll();
+  app.stackView.addAll();
+}

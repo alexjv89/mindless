@@ -5,7 +5,7 @@ const electron = require('electron');
 const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
-
+const electronLocalshortcut = require('electron-localshortcut');
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -18,7 +18,19 @@ function createWindow () {
   mainWindow.loadURL('file://' + __dirname + '/public/index.html');
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
+
+
+  /* 
+    Registering a shortcut so that it can be listened to. 
+  */
+
+
+  // Check whether a shortcut is registered.
+  electronLocalshortcut.register(mainWindow, 'Cmd+F', () => {
+    console.log('You pressed cmd & F');
+    mainWindow.webContents.send('ping','who are you?');
+  });
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
