@@ -1,5 +1,6 @@
 app.ReminderView = Backbone.View.extend({
 	el: '#reminder',
+	pos:1,
 	initialize: function () {
 		this.input = this.$('#reminder-new-todo');
 		app.todoList.on('add', this.addAll, this);
@@ -19,13 +20,21 @@ app.ReminderView = Backbone.View.extend({
 	addOne: function(todo){
 		if(todo.attributes.section=='reminder'&&todo.get('thread')==app.thread)
 		{
+			if(todo.get('pos')!=this.pos)
+			{
+				todo.set('pos',this.pos);
+				todo.save();
+			}
+			this.pos++;
 			var view = new app.TodoView({model: todo});
 			$('#reminder-todo-list').append(view.render().el);
 		}
 	},
 	addAll: function(){
+		this.pos=1;
 		this.$('#reminder-todo-list').html(''); // clean the todo list
 		app.todoList.each(this.addOne, this);
+		$('#reminder_count').html(this.pos-1);
 	},
 	newAttributes: function(){
 		return {

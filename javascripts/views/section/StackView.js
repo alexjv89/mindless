@@ -38,6 +38,8 @@ app.StackView = Backbone.View.extend({
     this.pos=1;
     this.$('#stack-todo-list').html(''); // clean the todo list
     app.todoList.each(this.addOne, this);
+    $('#stack_count').html(this.pos-1);
+    // console.log(this.pos);
   },
   newAttributes: function(){
     return {

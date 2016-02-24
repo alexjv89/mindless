@@ -36,6 +36,7 @@ app.CallbackView = Backbone.View.extend({
 		this.pos=1;
 		this.$('#callback-todo-list').html(''); // clean the todo list
 		app.todoList.each(this.addOne, this);
+		$('#callback_count').html(this.pos-1);
 	},
 	newAttributes: function(){
 		return {
