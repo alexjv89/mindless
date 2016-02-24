@@ -27,63 +27,105 @@
   
 </head>
 <body>
-  <!-- ========= -->
-  <!-- Your HTML -->
-  <!-- ========= -->
-
-  <!-- <section id="todoapp">
-    <header id="header">
-      <h1>Todos</h1>
-      <input id="new-todo" placeholder="What needs to be done?" autofocus>
-    </header>
-    <section id="main">
-      <ul id="todo-list" class='todolist'></ul>
-    </section>
-  </section>
-  <div>
-    <p>Find the tutorial and code in <a href="http://adrianmejia.com/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">here</a></p>
-  </div>  --> 
-  
-  <div>
-    <h2>Stack</h2>
+  <div class="ui container">
+    <div class="ui secondary pointing menu" id="threads">
+      <a class="item active">
+        Ather
+      </a>
+      <a class="item">
+        IKP
+      </a>
+      <a class="item">
+        Startup
+      </a>
+      <a class="item">
+        General
+      </a>
+      <a class="item">
+        <i class="icon plus"></i>
+      </a>
+      <div class="right menu">
+        <a class="ui item">
+          Logout
+        </a>
+      </div>
+    </div>
+  <div class="column">
+    <div class="ui segment">
+      <h2 class="ui dividing header">
+        Stack
+        <div class="ui red label">5</div>
+      <div class="sub header">Things that you are working on right now</div>
+    </h2>
     <section id="stack">
       <header id="header">
-        <input id="stack-new-todo" placeholder="What needs to be done?" autofocus>
+        <div class="ui fluid action input">
+          <input id="stack-new-todo" type="text" placeholder="Add new task to stack">
+          <button class="ui teal button">Add</button>
+        </div>
       </header>
       <section id="main">
         <ul id="stack-todo-list" class='todolist'></ul>
       </section>
     </section>
+    </div>
+
+
+    <div class="ui  segment">
+      <h2 class="ui dividing header">
+        Callback Queue
+        <div class="ui teal label">22</div>
+        <div class="sub header">Tasks that needs to be done as soon as the stack is empty</div>
+      </h2>
+      <section id="callback">
+        <header id="header">
+        </header>
+        <section id="main">
+          <ul id="callback-todo-list" class='todolist'></ul>
+        </section>
+        <section >
+          <!-- <input id="callback-new-todo" placeholder="What needs to be done?" autofocus> -->
+          <div class="ui fluid action input">
+            <input id="callback-new-todo" type="text" placeholder="Add new task to the callback">
+            <button class="ui teal button">Add</button>
+          </div>
+        </section>
+      </section>
+    </div>
+
+
+    <div class="ui segment">
+      <h2 class="ui dividing header">Reminder me later queue
+        <div class="ui red label">22</div>
+        <div class="sub header">All important tasks that are not scheduled to be executed yet.</div>
+      
+      </h2>
+      <section id="reminder">
+        <header id="header">
+        </header>
+        <section id="main">
+          <ul id="reminder-todo-list" class='todolist'></ul>
+        </section>
+      </section>
+    </div>
+    
   </div>
 
-  <div>
-    <h2>Callback Queue</h2>
-    <section id="callback">
-      <header id="header">
-      </header>
-      <section id="main">
-        <ul id="callback-todo-list" class='todolist'></ul>
-      </section>
-      <section >
-        <input id="callback-new-todo" placeholder="What needs to be done?" autofocus>
-      </section>
-    </section>
-  </div>
+    
 
-  <div>
-    <h2>Reminder me later queue</h2>
-    <section id="reminder">
-      <header id="header">
-      </header>
-      <section id="main">
-        <ul id="reminder-todo-list" class='todolist'></ul>
-      </section>
-    </section>
+
+    
+  
   </div>
 
   <!-- Templates -->
   <script type="text/template" id="item_template">
     <div class="view">
+    <!--
+      <button class="compact ui mini button basic ather">Ather</button>
+      <button class="compact ui mini button basic ikp">IKP</button>
+      <button class="compact ui mini button basic startup">Startup</button>
+      -->
       <% if(section=='stack') {%>
         <input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
       <% } %>
@@ -99,6 +141,7 @@
         <button class="circular mini compact basic ui icon button destroy"><i class="icon delete"></i></button>
         
       <% } %>
+      
       <label><%- pos %> -</label>
       <label><%- title %></label>
       <input class="edit" value="<%- title %>">
@@ -117,6 +160,20 @@
     </div>
   </script>  
 
+  <script type="text/template" id="thread_template">
+    <% if(active) {%>
+    <a class="item active thread">
+        <%- title %>
+    </a>
+    <% } %>
+    <% if(!active) {%>
+    <a class="item thread">
+        <%- title %>
+    </a>
+    <% } %>
+  </script> 
+
+
   
 
   <!-- ========= -->
@@ -132,6 +189,35 @@
   <!-- Javascript code -->
   <!-- =============== -->
   <script src = '../javascripts/app.js'></script>
+
+  <!-- ====== -->
+  <!-- Models -->
+  <!-- ====== -->
+  <script src = '../javascripts/models/models.js'></script>
+
+  <!-- =========== -->
+  <!-- Collections -->
+  <!-- =========== -->
+  <script src = '../javascripts/collections/TodoList.js'></script>
+  <script src = '../javascripts/collections/ThreadList.js'></script>
+
+
+  <!-- ===== -->
+  <!-- Views -->
+  <!-- ===== -->
+  <script src = '../javascripts/views/item/TodoView.js'></script>
+  <script src = '../javascripts/views/item/ThreadView.js'></script>
+  <script src = '../javascripts/views/section/StackView.js'></script>
+  <script src = '../javascripts/views/section/CallbackView.js'></script>
+  <script src = '../javascripts/views/section/ReminderView.js'></script>
+  <script src = '../javascripts/views/section/AllThreadsView.js'></script>
+
+  <!-- ========== -->
+  <!-- Initialize -->
+  <!-- ========== -->
+  <script src = '../javascripts/initialize.js'></script>
+
+
   
 </body>
 </html>
