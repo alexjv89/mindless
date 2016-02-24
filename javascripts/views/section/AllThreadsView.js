@@ -17,6 +17,7 @@ app.AllThreadsView = Backbone.View.extend({
 	},
 	events: {
 		'click #create_thread': 'create_thread',
+		'keypress .edit' : 'searchOnEnter',
 	},
 	addOne: function(thread){
 		// console.log();
@@ -40,10 +41,26 @@ app.AllThreadsView = Backbone.View.extend({
 		// app.threadList.each(this.addOne, this);
 		app.threadList.each(this.addOne,this);
 		this.$el.append('<a class="item" id="create_thread"><i class="icon plus"></i></a>');
+		// this if for the sarch text
+		this.$el.append('<div class="right item"><div class="ui icon mini input"><input class="edit" id="search" type="text" placeholder="Search..."><i class="search icon"></i></div></div>');
 	},
 	create_thread:function(){
 		// app.threadList.create({title})
 		alert("plus button clicked");
+	},
+	searchOnEnter:function(e){
+		if(e.which == 13){
+			var value = this.$('.edit').val().trim();
+			console.log(value);
+			findString(value);
+			// this.$('.edit').focus();
+			// $('#stack-new-todo').focus()
+			$('#search').focus()
+			// if(value) {
+			// 	this.model.save({title: value});
+			// }
+			// this.$el.removeClass('editing');
+		}
 	},
 
 	

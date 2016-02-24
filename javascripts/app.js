@@ -117,8 +117,8 @@ function findString (str) {
   strFound=self.find(str);
   console.log(strFound);
   if (!strFound) {
-    console.log("came here");
-    console.log(strFound);
+    // console.log("came here");
+    // console.log(strFound);
     strFound=self.find(str,0,1);
     while (self.find(str,0,1)) continue;
   }
