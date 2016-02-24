@@ -35,7 +35,6 @@ app.StackView = Backbone.View.extend({
     }
   },
   addAll: function(){
-    console.log("stackView addAll() called - "+app.thread);
     this.pos=1;
     this.$('#stack-todo-list').html(''); // clean the todo list
     app.todoList.each(this.addOne, this);

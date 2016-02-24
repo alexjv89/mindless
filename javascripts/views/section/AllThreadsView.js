@@ -5,6 +5,15 @@ app.AllThreadsView = Backbone.View.extend({
 		app.threadList.on('add', this.addAll, this);
 		app.threadList.on('reset', this.addAll, this);
 		app.threadList.fetch(); // Loads list from local storage
+		app.threadList.each(function(thread){
+			if(thread.get('active')){
+				app.thread=thread.get('title');
+				app.stackView.addAll();
+				app.callbackView.addAll();
+				app.reminderView.addAll();
+			}
+		});
+
 	},
 	events: {
 		'click #create_thread': 'create_thread',
@@ -28,7 +37,6 @@ app.AllThreadsView = Backbone.View.extend({
 	},
 	addAll: function(){
 		this.$el.html(''); // clean the todo list
-		console.log("addAll called");
 		// app.threadList.each(this.addOne, this);
 		app.threadList.each(this.addOne,this);
 		this.$el.append('<a class="item" id="create_thread"><i class="icon plus"></i></a>');
