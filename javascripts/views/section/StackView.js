@@ -9,12 +9,16 @@ app.StackView = Backbone.View.extend({
     app.todoList.fetch(); // Loads list from local storage
   },
   events: {
-    'keypress #stack-new-todo': 'createTodoOnEnter'
+    'keypress #stack-new-todo': 'createTodoOnEnter',
+    'click .add': 'createTask'
   },
   createTodoOnEnter: function(e){
     if ( e.which !== 13 || !this.input.val().trim() ) { // ENTER_KEY = 13
       return;
     }
+    this.createTask();
+  },
+  createTask: function(e){
     app.todoList.create(this.newAttributes());
     this.input.val(''); // clean input box
   },
