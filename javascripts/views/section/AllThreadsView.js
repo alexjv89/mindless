@@ -5,6 +5,13 @@ app.AllThreadsView = Backbone.View.extend({
 		app.threadList.on('add', this.addAll, this);
 		app.threadList.on('reset', this.addAll, this);
 		app.threadList.fetch(); // Loads list from local storage
+		if (app.threadList.length==0) // default thread if using the app for the first time
+		{
+			var default_thread='General'
+			app.threadList.create({'title':default_thread});
+			app.threadList.models[0].set('active',true);
+			app.thread=default_thread;
+		}
 		app.threadList.each(function(thread){
 			if(thread.get('active')){
 				app.thread=thread.get('title');
