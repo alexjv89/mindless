@@ -17,20 +17,26 @@ You get into the state of flow, when you your shuts down part of the brain and f
 
 #### 1. Stack
 ![Alt text](./docs/images/2.png "Stack")
+
 The stack is your list of tasks that you need to focusing on right now. 
 
 #### 2. Subtasks goes to the top of the stack
 ![Alt text](./docs/images/4.png "Adding subtask")
-on hitting enter:
+
+**on hitting enter:**
+
 ![Alt text](./docs/images/5.png "Stack")
+
 Current tasks might require you to do a subtask. That goes to the top of the stack. 
 
 #### 3. The new subtask just created need not be done immediately
 ![Alt text](./docs/images/6.png "MCQ")
+
 The new subtask that you created might have been triggered by your current task but it might not be necessary to do it right now. Push the task to the callback queue (just like callbacks in Javascript) by clicking on `MCQ` button (stands for 'Move to Callback Queue')
 
 #### 4. Top of the stack is special
 ![Alt text](./docs/images/3.png ""Top of Stack")
+
 The task at the top of the stack is special. You can **move the task to the callback queue** (`MCQ` button) if you cant do the specific task right now (not in the right mood or if necessary resource is not at arms length). Tasks in the callback queue will turn up in the stack when all other tasks are done. 
 
 You can also **move the task to the Remind me later list** (`RML` button). This list is supposed to be the tasks that you dont even want to do in the next iteration. This is basically your other list. You will have to move the task back to the callback queue manually. 
@@ -50,17 +56,22 @@ This is a feature, not a bug.
 If you finished all tasks in the stack, one task from the top of the callback queue is pushed to the stack. 
 
 **Initial state:**
+
 ![Alt text](./docs/images/11.png "Mark a task as done")
 
 **Marked the last task in stack as done:**
+
 ![Alt text](./docs/images/12.png "Mark a task as done")
 
 **The top of the callback queue is pushed to the stack:**
+
 ![Alt text](./docs/images/13.png "Mark a task as done")
+
 Dont want to do that task now? Move to callback queue. It goes to the bottom of the callback queue and the task that is currently the top of the callback queue will be pushed to the stack. 
 
 #### 8. Remind Me Later list (RML)
 ![Alt text](./docs/images/7.png "Remind me later")
+
 No automated magic here. Move task to callback queue if you choose to bring it to your focus. Recommended to scan your RML list every week. 
 
 #### 9. Your job - Empty the stack ! 
@@ -73,6 +84,7 @@ Work on multiple projects simultaniously and still avoid missing details. Multi 
 
 #### 11. Searching 
 ![Alt text](./docs/images/15.png "Empty the stack")
+
 Search for a task in a given thread/compartment.
 
 ## To Use
