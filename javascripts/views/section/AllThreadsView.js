@@ -3,7 +3,7 @@ app.AllThreadsView = Backbone.View.extend({
 	initialize: function () {
 		// this.input = this.$('#reminder-new-todo');
 		app.threadList.on('add', this.addAll, this);
-		app.threadList.on('reset', this.addAll, this);
+		app.threadList.on('update', this.addAll, this);
 		app.threadList.fetch(); // Loads list from local storage
 		if (app.threadList.length==0) // default thread if using the app for the first time
 		{
