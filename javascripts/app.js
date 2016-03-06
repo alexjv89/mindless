@@ -98,10 +98,12 @@ var getBottomOfCallbackQueuePos=function(){
 
 
 
-    var ipc = require("electron").ipcRenderer;
-    ipc.on('ping', function(event,message) {
-      // console.log(message); // prints "pong"
-    });
+    if (typeof process !== 'undefined' && process.versions && process.versions.electron) {
+      var ipc = require("electron").ipcRenderer;
+      ipc.on('ping', function(event,message) {
+        // console.log(message); // prints "pong"
+      });
+    }
 
 
 /*
