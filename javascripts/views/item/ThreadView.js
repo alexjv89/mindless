@@ -27,8 +27,8 @@ app.ThreadView = Backbone.View.extend({
 	},
 	edit: function(){
 		this.$el.addClass('editing');
-		console.log("editing");
-		console.log(this.$el);
+		// console.log("editing");
+		// console.log(this.$el);
 		this.input.focus();
 	},
 	click_thread:function(){

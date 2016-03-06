@@ -37,23 +37,23 @@ var getBottomOfCallbackQueuePos=function(){
     }
 
   },this);
-  console.log("bottom of callback_queue pos = "+bottom);
+  // console.log("bottom of callback_queue pos = "+bottom);
   return bottom;
 }
 
 
-    
 
 
-    
+
+
 
     // instance of the Collection
 
     //--------------
     // Views
     //--------------
-    
-    
+
+
     // // renders the full list of todo items calling TodoView for each one.
     // // app.AppView = Backbone.View.extend({
     // //   el: '#todoapp',
@@ -89,18 +89,18 @@ var getBottomOfCallbackQueuePos=function(){
     // //   }
     // // });
 
-    
-
-    
-
-    
-    
 
 
-    
+
+
+
+
+
+
+
     var ipc = require("electron").ipcRenderer;
     ipc.on('ping', function(event,message) {
-      console.log(message); // prints "pong"
+      // console.log(message); // prints "pong"
     });
 
 
@@ -115,7 +115,7 @@ function findString (str) {
   // CODE FOR BROWSERS THAT SUPPORT window.find
 
   strFound=self.find(str);
-  console.log(strFound);
+  // console.log(strFound);
   if (!strFound) {
     // console.log("came here");
     // console.log(strFound);
@@ -123,9 +123,9 @@ function findString (str) {
     while (self.find(str,0,1)) continue;
   }
  }
- 
+
   if (lastSearchedString!=str && !strFound) alert ("String '"+str+"' not found!")
-  lastSearchedString=str;  
+  lastSearchedString=str;
  return;
 }
 
@@ -133,12 +133,12 @@ function pushAllTasksInCallbackToStack(){
   app.todoList.each(function(todo){
     if(todo.get('section')=='callback_queue')
     {
-      console.log(todo.attributes);
+      // console.log(todo.attributes);
       todo.set('section','stack');
       todo.set('pos',getTopOfStackPos()+getBottomOfCallbackQueuePos());
       todo.save();
-      console.log(todo.attributes);
-      console.log(getTopOfStackPos());
+      // console.log(todo.attributes);
+      // console.log(getTopOfStackPos());
     }
   });
   app.todoList.sort();

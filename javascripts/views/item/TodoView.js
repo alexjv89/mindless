@@ -44,8 +44,8 @@ app.TodoView = Backbone.View.extend({
 	// },
 	edit: function(){
 		this.$el.addClass('editing');
-		console.log("editing");
-		console.log(this.$el);
+		// console.log("editing");
+		// console.log(this.$el);
 		this.input.focus();
 	},
 	close: function(){
@@ -68,7 +68,7 @@ app.TodoView = Backbone.View.extend({
 	},
 	destroy: function(){
 		var section = this.model.get('section');
-		console.log("removing task");
+		// console.log("removing task");
 		this.model.destroy();
 		if (section=='stack')
 		{
@@ -110,14 +110,14 @@ app.TodoView = Backbone.View.extend({
 				this.pushTaskToStackIfEmpty();
 	},
 	pushTaskToStackIfEmpty: function(){
-		console.log("hello%%%%%%");
-		if (getTopOfStackPos()==0)
-			console.log("stackEmpty");
+		// console.log("hello%%%%%%");
+		// if (getTopOfStackPos()==0)
+			// console.log("stackEmpty");
 		// this pushes the top of callback queue to the stack
 		app.todoList.some(function(todo){
 			if (todo.get('section')=='callback_queue'&&todo.get('thread')==app.thread)
 			{
-				console.log(todo.get('title'));
+				// console.log(todo.get('title'));
 				todo.set('section','stack');
 				todo.save();
 				app.stackView.addAll();
