@@ -6,6 +6,12 @@
 ## About - Execute tasks mindlessly
 This is a meant to be a simple task manager that is supposed to help you execute tasks mindlessly. This task manager is a loosely modelled on a javascript runtime engine. 
 
+#### Try it 
+You can try it out here - http://alexjv89.github.io/mindless/
+
+**Note:** The ideal way for you to use it is to download the code and run it your browser or inside an electron shell. This way you are not dependant on an internet connection to get things done. 
+
+[Reffer to this section(To Use)](#to-use) to start using this app. 
 
 #### Who this is for? 
 If you have a number of small tasks(the ones that take 30 mins to 2 hrs to complete) and end up missing a lot of them. 
