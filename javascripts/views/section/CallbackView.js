@@ -5,8 +5,8 @@ app.CallbackView = Backbone.View.extend({
 	initialize: function () {
 		this.input = this.$('#callback-new-todo');
 		app.todoList.on('add', this.addAll, this);
-		app.todoList.on('reset', this.addAll, this);
-		app.todoList.fetch(); // Loads list from local storage
+		app.todoList.on('update', this.addAll, this);
+	        app.todoList.fetch();
 	},
 	events: {
 		'keypress #callback-new-todo': 'createTodoOnEnter',
@@ -24,7 +24,6 @@ app.CallbackView = Backbone.View.extend({
 		this.input.val(''); // clean input box
 	},
 	addOne: function(todo){
-
 		if(todo.get('section')=='callback_queue' && todo.get('completed')==false&&todo.get('thread')==app.thread)
 		{
 			if(todo.get('pos')!=this.pos)

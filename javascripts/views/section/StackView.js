@@ -5,7 +5,7 @@ app.StackView = Backbone.View.extend({
   initialize: function () {
     this.input = this.$('#stack-new-todo');
     app.todoList.on('add', this.addAll, this);
-    app.todoList.on('reset', this.addAll, this);
+    app.todoList.on('update', this.addAll, this);
     app.todoList.fetch(); // Loads list from local storage
   },
   events: {
@@ -30,9 +30,6 @@ app.StackView = Backbone.View.extend({
         todo.set('pos',this.pos);
         todo.save();
       }
-      // console.log(this.pos);
-      // console.log(todo.get('pos'));
-      // console.log(todo.get('title'));
       this.pos++;
       var view = new app.TodoView({model: todo});
       $('#stack-todo-list').prepend(view.render().el);

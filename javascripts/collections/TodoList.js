@@ -4,7 +4,7 @@ app.TodoList = Backbone.Collection.extend({
   comparator: function( collection ){
     return( collection.get( 'pos' ) );
   },
-  localStorage: new Store("backbone-todo")
+  localStorage: new Backbone.LocalStorage("backbone-todo")
 });
 
 // initializing an instance of the collection

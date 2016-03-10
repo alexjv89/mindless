@@ -3,7 +3,7 @@ app.ThreadList = Backbone.Collection.extend({
   comparator: function( collection ){
     return( collection.get( 'pos' ) );
   },
-  localStorage: new Store("backbone-thread")
+  localStorage: new Backbone.LocalStorage("backbone-thread")
 });
 
 //initializing an instance of the collection

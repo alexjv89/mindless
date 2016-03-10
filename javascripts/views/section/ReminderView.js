@@ -4,7 +4,7 @@ app.ReminderView = Backbone.View.extend({
 	initialize: function () {
 		this.input = this.$('#reminder-new-todo');
 		app.todoList.on('add', this.addAll, this);
-		app.todoList.on('reset', this.addAll, this);
+		app.todoList.on('update', this.addAll, this);
 		app.todoList.fetch(); // Loads list from local storage
 	},
 	events: {

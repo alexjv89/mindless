@@ -3,7 +3,7 @@ app.AllThreadsView = Backbone.View.extend({
 	initialize: function () {
 		// this.input = this.$('#reminder-new-todo');
 		app.threadList.on('add', this.addAll, this);
-		app.threadList.on('reset', this.addAll, this);
+		app.threadList.on('update', this.addAll, this);
 		app.threadList.fetch(); // Loads list from local storage
 		if (app.threadList.length==0) // default thread if using the app for the first time
 		{
@@ -39,8 +39,8 @@ app.AllThreadsView = Backbone.View.extend({
 		// }
 		if(thread.get('deleted')==false)
 		{
-			console.log(thread.get('title'));
-			console.log(thread.get('deleted'));
+			// console.log(thread.get('title'));
+			// console.log(thread.get('deleted'));
 			var threadView = new app.ThreadView({model:thread});
 			threadView.generate_item_html()
 			this.$el.append(threadView.el);
@@ -68,7 +68,7 @@ app.AllThreadsView = Backbone.View.extend({
 	searchOnEnter:function(e){
 		if(e.which == 13){
 			var value = this.$('.search').val().trim();
-			console.log(value);
+			// console.log(value);
 			findString(value);
 			// this.$('.edit').focus();
 			// $('#stack-new-todo').focus()
@@ -82,7 +82,7 @@ app.AllThreadsView = Backbone.View.extend({
 	addOnEnter:function(e){
 		if(e.which == 13){
 			var value = this.$('.add').val().trim();
-			console.log(value);
+			// console.log(value);
 			app.threadList.create({'title':value});
 			this.$el.find('#create_thread').show();
 			this.$el.find('input.add').hide();
@@ -90,5 +90,5 @@ app.AllThreadsView = Backbone.View.extend({
 
 	},
 
-	
+
 });
