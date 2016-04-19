@@ -1,3 +1,6 @@
+/*
+	All interactions associated with the remind me later section.
+*/
 app.ReminderView = Backbone.View.extend({
 	el: '#reminder',
 	pos:1,
@@ -34,7 +37,12 @@ app.ReminderView = Backbone.View.extend({
 		this.pos=1;
 		this.$('#reminder-todo-list').html(''); // clean the todo list
 		app.todoList.each(this.addOne, this);
+		// updates the counter label and its color
 		$('#reminder_count').html(this.pos-1);
+		if (this.pos-1<=20)
+	      $('#reminder_count').removeClass('red').addClass('teal');
+	    else
+	      $('#reminder_count').removeClass('teal').addClass('red');
 	},
 	newAttributes: function(){
 		return {

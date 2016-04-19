@@ -1,3 +1,6 @@
+/*
+  All interactions associated with stackview section.
+*/
 // renders the full list of todo items calling TodoView for each one.
 app.StackView = Backbone.View.extend({
   el: '#stack',
@@ -39,7 +42,12 @@ app.StackView = Backbone.View.extend({
     this.pos=1;
     this.$('#stack-todo-list').html(''); // clean the todo list
     app.todoList.each(this.addOne, this);
-    $('#stack_count').html(this.pos-1);
+    $('#stack_count').html(this.pos-1); // 
+    if (this.pos-1<=5)
+      $('#stack_count').removeClass('red').addClass('teal');
+    else
+      $('#stack_count').removeClass('teal').addClass('red');
+
     // console.log(this.pos);
   },
   newAttributes: function(){

@@ -1,3 +1,6 @@
+/*
+	All interactions associated with the call back queue section.
+*/
 // renders the full list of todo items calling TodoView for each one.
 app.CallbackView = Backbone.View.extend({
 	el: '#callback',
@@ -40,7 +43,12 @@ app.CallbackView = Backbone.View.extend({
 		this.pos=1;
 		this.$('#callback-todo-list').html(''); // clean the todo list
 		app.todoList.each(this.addOne, this);
+		// updates the counter label and its color
 		$('#callback_count').html(this.pos-1);
+		if (this.pos-1<=10)
+	      $('#callback_count').removeClass('red').addClass('teal');
+	    else
+	      $('#callback_count').removeClass('teal').addClass('red');
 	},
 	newAttributes: function(){
 		return {
