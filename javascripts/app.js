@@ -40,6 +40,22 @@ var getBottomOfCallbackQueuePos=function(){
   // console.log("bottom of callback_queue pos = "+bottom);
   return bottom;
 }
+var getBottomOfRemindMeLaterPos=function(){
+  var bottom=0;
+  app.todoList.each(function(todo){
+    // console.log("came here");
+    // console.log(todo);
+    if(todo.get('section')=='reminder' && todo.get('completed')==false&&todo.get('thread')==app.thread)
+    {
+      // console.log("part of stack");
+      // console.log(todo.get('title'));
+      bottom++;
+    }
+
+  },this);
+  // console.log("bottom of callback_queue pos = "+bottom);
+  return bottom;
+}
 
 
 

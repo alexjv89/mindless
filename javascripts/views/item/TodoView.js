@@ -85,7 +85,9 @@ app.TodoView = Backbone.View.extend({
 	},
 	pushTaskToReminderList: function(){
 		this.model.set('section','reminder');
+		this.model.set('pos',getBottomOfRemindMeLaterPos());
 		this.model.save();
+		app.todoList.sort();
 		app.stackView.addAll();
 		app.reminderView.addAll();
 		if (getTopOfStackPos()==0)
