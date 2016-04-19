@@ -57,6 +57,30 @@ var getBottomOfRemindMeLaterPos=function(){
   return bottom;
 }
 
+var updateLabel=function(section,count){
+  if (section=='stack' ){
+    $('#stack_count').html(count);
+    if (count<=5)
+        $('#stack_count').removeClass('red').addClass('teal');
+      else
+        $('#stack_count').removeClass('teal').addClass('red');
+  }else if (section=='callback_queue' ){
+    $('#callback_count').html(count);
+    if (count<=10)
+        $('#callback_count').removeClass('red').addClass('teal');
+      else
+        $('#callback_count').removeClass('teal').addClass('red');
+  }else if (section=='reminder' ){
+    $('#reminder_count').html(count);
+    if (count<=20)
+        $('#reminder_count').removeClass('red').addClass('teal');
+      else
+        $('#reminder_count').removeClass('teal').addClass('red');
+  }
+  
+
+
+}
 
 
 

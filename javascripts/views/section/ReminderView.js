@@ -38,11 +38,7 @@ app.ReminderView = Backbone.View.extend({
 		this.$('#reminder-todo-list').html(''); // clean the todo list
 		app.todoList.each(this.addOne, this);
 		// updates the counter label and its color
-		$('#reminder_count').html(this.pos-1);
-		if (this.pos-1<=20)
-	      $('#reminder_count').removeClass('red').addClass('teal');
-	    else
-	      $('#reminder_count').removeClass('teal').addClass('red');
+		updateLabel('reminder',this.pos-1);
 	},
 	newAttributes: function(){
 		return {
